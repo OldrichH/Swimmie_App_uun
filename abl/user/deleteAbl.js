@@ -2,7 +2,6 @@ const Ajv = require("ajv");
 const ajv = new Ajv();
 
 const userDao = require("../../dao/user-dao.js");
-const attendanceDao = require("../../dao/attendance-dao.js");
 
 const schema = {
   type: "object",
@@ -29,14 +28,6 @@ async function DeleteAbl(req, res) {
       return;
     }
 
-    const attendanceMap = attendanceDao.userMap();
-    if (attendanceMap[reqParams.id]) {
-      res.status(400).json({
-        code: "userHasAttendances",
-        message: `User ${reqParams.id} has attendances`,
-      });
-      return;
-    }
     userDao.remove(reqParams.id);
 
     res.json({});

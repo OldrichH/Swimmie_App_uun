@@ -5,6 +5,7 @@ const port = 8000;
 const connectDB = require('./database/connection');
 
 const swimmingRecordController = require("./controller/swimmingRecord");
+const userController = require("./controller/user");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -17,6 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/swimming-record",swimmingRecordController);
+app.use("/user",userController);
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);

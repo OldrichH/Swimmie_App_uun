@@ -3,16 +3,16 @@ const addFormats = require("ajv-formats").default;
 const ajv = new Ajv();
 addFormats(ajv);
 
-const validateDateTime = require("../../helpers/validate-date-time.js");
-ajv.addFormat("date-time", { validate: validateDateTime });
+//const validateDateTime = require("../../utils/validate-date-time.js");
+//ajv.addFormat("date-time", { validate: validateDateTime });
 
-const userDao = require("../../dao/user-dao.js");
+const userDao = require("../../dao/user-dao");
 
 const schema = {
   type: "object",
   properties: {
-    name: { type: "string", minLength: 3 },
-    surname: {type: "string", minLength: 3},
+    name: { type: "string"},
+    surname: {type: "string"},
     email: { type: "string", format: "email" },
     personalLimit: {type: "string"},
   },
@@ -35,15 +35,15 @@ async function CreateAbl(req, res) {
       return;
     }
 
-    const userList = userDao.list();
-    const emailExists = userList.some((u) => u.email === user.email);
-    if (emailExists) {
-      res.status(400).json({
-        code: "emailAlreadyExists",
-        message: `User with email ${user.email} already exists`,
-      });
-      return;
-    }
+    // const userList = userDao.list();
+    // const emailExists = userList.some((u) => u.email === user.email);
+    // if (emailExists) {
+    //   res.status(400).json({
+    //     code: "emailAlreadyExists",
+    //     message: `User with email ${user.email} already exists`,
+    //   });
+    //   return;
+    // }
 
     // If user doesn't fill his own personal limit default value will be set
     if (!user.personalLimit) {

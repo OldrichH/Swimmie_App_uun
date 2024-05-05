@@ -6,7 +6,7 @@ const userDao = require("../../dao/user-dao.js");
 const schema = {
   type: "object",
   properties: {
-    id: { type: "string", minLength: 32, maxLength: 32 },
+    id: { type: "string"},
   },
   required: ["id"],
   additionalProperties: false,
@@ -29,7 +29,7 @@ async function GetAbl(req, res) {
     }
 
     // read user by given id
-    const user = userDao.get(reqParams.id);
+    const user = await userDao.get(reqParams.id);
     if (!user) {
       res.status(404).json({
         code: "userNotFound",

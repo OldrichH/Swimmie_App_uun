@@ -2,21 +2,19 @@ const SwimmingRecord = require("../models/swimmingRecord.model");
 
 const get = async (recordId) => {
   try {
-    const record = await SwimmingRecordModel.findById(recordId);
+    const record = await SwimmingRecord.findById(recordId);
     return record;
   } catch (error) {
-    throw { code: "failedToReadEvent", message: error.message };
+    throw { code: "failedToReadRecord", message: error.message };
   }
 };
 
 const getByUserId = async (userId) => {
   try {
-    const record = await SwimmingRecordModel.find(
-      (record) => record.userId === userId
-    );
+    const record = await SwimmingRecord.find({userId: userId});
     return record;
   } catch (error) {
-    throw { code: "failedToReadEvent", message: error.message };
+    throw { code: "failedToReadRecord", message: error.message };
   }
 };
 
@@ -27,34 +25,33 @@ const create = async (record) => {
 
     return newRecord;
   } catch (error) {
-    throw { code: "failedToCreateEvent", message: error.message };
+    throw { code: "failedToCreateRecord", message: error.message };
   }
 };
 
 
-function update(event) {
+const update = async (record) => {
   try {
-    const currentEvent = get(event.id);
-    if (!currentEvent) return null;
-    const newEvent = { ...currentEvent, ...event };
-    const filePath = path.join(eventFolderPath, `${event.id}.json`);
-    const fileData = JSON.stringify(newEvent);
-    fs.writeFileSync(filePath, fileData, "utf8");
-    return newEvent;
+    const currentRecord = await get(record.id);
+    if (!currentRecord) return null;
+
+    const currentRecordObj = currentRecord.toObject();
+
+    const newRecord = { ...currentRecordObj, ...record };
+    const result = await SwimmingRecord.updateOne({_id: record.id}, newRecord);
+    return result 
   } catch (error) {
-    throw { code: "failedToUpdateEvent", message: error.message };
+    throw { code: "failedToUpdateRecord", message: error.message };
   }
 }
 
-// Method to remove an event from a file
-function remove(eventId) {
+const remove = async (recordId) => {
   try {
-    const filePath = path.join(eventFolderPath, `${eventId}.json`);
-    fs.unlinkSync(filePath);
-    return {};
+    //const result = await SwimmingRecord.deleteOne(recordId).exec();
+    const result = await SwimmingRecord.deleteOne({_id: recordId}).exec();
+    return result;
   } catch (error) {
-    if (error.code === "ENOENT") return {};
-    throw { code: "failedToRemoveEvent", message: error.message };
+    throw { code: "failedToRemoveRecord", message: error.message };
   }
 }
 

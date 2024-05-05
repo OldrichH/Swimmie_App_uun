@@ -6,7 +6,7 @@ const userDao = require("../../dao/user-dao.js");
 const schema = {
   type: "object",
   properties: {
-    id: { type: "string", minLength: 32, maxLength: 32 },
+    id: { type: "string" },
   },
   required: ["id"],
   additionalProperties: false,
@@ -28,7 +28,7 @@ async function DeleteAbl(req, res) {
       return;
     }
 
-    userDao.remove(reqParams.id);
+    await userDao.remove(reqParams.id);
 
     res.json({});
   } catch (e) {

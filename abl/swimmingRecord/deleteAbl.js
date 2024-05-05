@@ -27,7 +27,7 @@ async function DeleteAbl(req, res) {
       return;
     }
 
-    swimmingRecordDao.remove(reqParams.id);
+    await swimmingRecordDao.remove(reqParams.id);
     res.json({});
   } catch (e) {
     res.status(500).json({ message: e.message });

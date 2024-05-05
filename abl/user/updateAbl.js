@@ -8,7 +8,7 @@ const userDao = require("../../dao/user-dao.js");
 const schema = {
   type: "object",
   properties: {
-    id: { type: "string", minLength: 32, maxLength: 32 },
+    id: { type: "string" },
     name: { type: "string", minLength: 3 },
     surname: {type: "string", minLength: 3},
     email: { type: "string", format: "email" },
@@ -33,7 +33,7 @@ async function UpdateAbl(req, res) {
       return;
     }
 
-    const userList = userDao.list();
+    const userList = await userDao.list();
     const emailExists = userList.some(
       (u) => u.email === user.email && u.id !== user.id
     );
@@ -45,7 +45,7 @@ async function UpdateAbl(req, res) {
       return;
     }
 
-    const updatedUser = userDao.update(user);
+    const updatedUser = await userDao.update(user);
     if (!updatedUser) {
       res.status(404).json({
         code: "userNotFound",

@@ -48,7 +48,7 @@ async function CreateAbl(req, res) {
     //   return;
     // }
 
-    swimmingRecord = swimmingRecordDao.create(swimmingRecord);
+    swimmingRecord = await swimmingRecordDao.create(swimmingRecord);
     res.json(swimmingRecord);
   } catch (e) {
     res.status(500).json({ message: e.message });

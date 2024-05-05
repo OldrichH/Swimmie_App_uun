@@ -11,8 +11,8 @@ const userDao = require("../../dao/user-dao");
 const schema = {
   type: "object",
   properties: {
-    name: { type: "string"},
-    surname: {type: "string"},
+    name: { type: "string", minLength: 3 },
+    surname: {type: "string", minLength: 3 },
     email: { type: "string", format: "email" },
     personalLimit: {type: "string"},
   },
@@ -50,7 +50,7 @@ async function CreateAbl(req, res) {
       user.personalLimit = "1500";
     }
 
-    user = userDao.create(user);
+    user = await userDao.create(user);
     res.json(user);
   } catch (e) {
     res.status(500).json({ message: e.message });

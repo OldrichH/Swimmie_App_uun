@@ -9,7 +9,7 @@ const swimmingRecordDao = require("../../dao/swimmingRecord-dao.js");
 const schema = {
   type: "object",
   properties: {
-    id: { type: "string", minLength: 32, maxLength: 32 },
+    id: { type: "string"},
     userId: { type: "string" },
     swumMeters: {type: "number"},
     calories: {type: "number"},
@@ -36,7 +36,7 @@ async function UpdateAbl(req, res) {
       return;
     }
 
-    const updatedSwimmingRecord = swimmingRecordDao.update(swimmingRecord);
+    const updatedSwimmingRecord = await swimmingRecordDao.update(swimmingRecord);
     if (!updatedSwimmingRecord) {
       res.status(404).json({
         code: "swimmingRecordNotFound",

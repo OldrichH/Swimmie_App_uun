@@ -6,7 +6,7 @@ const swimmingRecordDao = require("../../dao/swimmingRecord-dao.js");
 const schema = {
   type: "object",
   properties: {
-    userId: { type: "string", minLength: 32, maxLength: 32 },
+    userId: { type: "string"},
   },
   required: ["userId"],
   additionalProperties: false,
@@ -15,7 +15,7 @@ const schema = {
 async function GetAbl(req, res) {
   try {
     // get request query or body
-    const reqParams = req.query?.id ? req.query : req.body;
+    const reqParams = req.query?.userId ? req.query : req.body;
 
     // validate input
     const valid = ajv.validate(schema, reqParams);
@@ -29,7 +29,7 @@ async function GetAbl(req, res) {
     }
 
     // read swimmingRecord by given id
-    const swimmingRecord = swimmingRecordDao.getByUserId(reqParams.id);
+    const swimmingRecord = await swimmingRecordDao.getByUserId(reqParams.userId);
     if (!swimmingRecord) {
       res.status(404).json({
         code: "swimmingRecordNotFound",

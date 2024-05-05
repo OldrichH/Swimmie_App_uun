@@ -1,0 +1,23 @@
+{
+  "name": "swimmieapp_backend",
+  "version": "1.0.0",
+  "description": "School project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Oldřich Hejčl",
+  "license": "ISC",
+  "dependencies": {
+    "ajv": "^8.13.0",
+    "ajv-formats": "^3.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.3"
+  },
+  "devDependencies": {
+    "mongoose": "^8.3.3",
+    "nodemon": "^3.1.0"
+  }
+}

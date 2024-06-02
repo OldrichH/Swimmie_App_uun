@@ -21,9 +21,10 @@ const ProgressBar = ({
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
+        const prgVal = progressValue <= 100 ? progressValue : 100;
         const timer = setInterval(() => {
             setProgress((prev) =>
-                prev < progressValue ? prev + 5 : progressValue
+                prev < prgVal ? prev + 5 : prgVal
             );
         }, 100);
         return () => {

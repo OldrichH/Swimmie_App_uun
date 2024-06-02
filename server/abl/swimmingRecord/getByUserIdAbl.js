@@ -38,7 +38,7 @@ async function GetAbl(req, res) {
       return;
     }
 
-    res.json(swimmingRecord);
+    res.json({records: swimmingRecord});
   } catch (e) {
     res.status(500).json({ message: e.message });
   }

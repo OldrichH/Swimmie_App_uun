@@ -8,5 +8,6 @@ export const CardContainer = styled("div")({
     boxSizing: "border-box",
     overflow: "auto",
     width: "100%",
-    textAlign: "center"
+    textAlign: "center",
+    marginBottom: "1rem",
 });

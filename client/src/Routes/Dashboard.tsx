@@ -1,8 +1,31 @@
-import Activities from "../components/Activities/Activities";
+import { CircularProgress, Grid } from "@mui/material";
+import ActivityTab from "../components/ActivityTab/ActivityTab";
+import UserProgress from "../components/UserProgress/UserProgress";
+import { useGetUser } from "../api/queries/useGetUser";
+import { useGetSWRecordsByUserId } from "../api/queries/useGetSWRecordsByUserId";
 
 const Dashboard = () => {
-    console.log("dash")
-    return <Activities/>;
-}
- 
+    const { userData, isLoading } = useGetUser("665c7b3c047746f79db84dd8"); // Getting only Demo user - authentication not implemented
+    const { swRecordData, isLoading: swRecordsLoading } =
+        useGetSWRecordsByUserId("665c7b3c047746f79db84dd8");
+
+    if (isLoading || swRecordsLoading) return <CircularProgress/>;
+
+    return (
+        <>
+            <Grid container spacing={4}>
+                <Grid item xs={12} sm={4} md={4}>
+                    <UserProgress
+                        swRecordData={swRecordData!}
+                        userLimit={userData!.personalLimit}
+                    />
+                </Grid>
+                <Grid item xs={12} sm={8} md={8}>
+                    <ActivityTab activities={swRecordData!} />
+                </Grid>
+            </Grid>
+        </>
+    );
+};
+
 export default Dashboard;

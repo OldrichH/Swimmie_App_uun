@@ -14,4 +14,5 @@ export const queryClient = new QueryClient({
 export const queryKeys = {
     USER: (userId: string ) => ["user", userId],
     SW_RECORDS: (userId: string) => ["SWRecord", userId],
+    STYLES: () => ["Styles"],
 };

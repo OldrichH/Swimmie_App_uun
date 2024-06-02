@@ -1,15 +1,16 @@
 import { Container } from "@mui/material";
-import { PropsWithChildren } from "react";
 import Header from "../Header/Header";
 import { Outlet } from "react-router-dom";
+import { Fragment } from "react/jsx-runtime";
 
-
-const Layout = ({ children }: PropsWithChildren) => {
+const Layout = () => {
     return (
-        <>
-            <Header/>
-            <Container maxWidth="lg"><Outlet/></Container>
-        </>
+        <Fragment>
+            <Header />
+            <Container maxWidth="lg">
+                <Outlet />
+            </Container>
+        </Fragment>
     );
 };
 

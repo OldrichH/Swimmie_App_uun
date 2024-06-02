@@ -1,4 +1,4 @@
-import Card from "../_base/Card";
+import Card from "../_base/Card/Card";
 import  {Grid } from "@mui/material";
 
 const ActivityTab = () => {

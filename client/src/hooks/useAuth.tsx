@@ -5,7 +5,7 @@ import { useEffect } from "react";
 export const useAuth = () => {
     const navigate = useNavigate();
 
-    const isAuth = isAuthenticated() ? false : true;
+    const isAuth = isAuthenticated() ? false : true; // for now alway true
 
     useEffect(() => {
         if (!isAuth) {

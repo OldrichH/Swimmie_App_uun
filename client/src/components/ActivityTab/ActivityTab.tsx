@@ -3,7 +3,7 @@ import { BaseSWRecordsResponse } from "../../api/responses/BaseSWRecordResponse"
 import Card from "../_base/Card/Card";
 import { Grid } from "@mui/material";
 import * as Styled from "./ActivityTab.styled";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 
 const ActivityTab = ({ activities }: { activities: BaseSWRecordsResponse }) => {
     const { stylesData, isLoading } = useGetStyles();
@@ -42,7 +42,7 @@ const ActivityTab = ({ activities }: { activities: BaseSWRecordsResponse }) => {
                                 </p>
                             </Grid>
                         </Grid>
-                        <EditIcon/>
+                        <EditIcon />
                     </Styled.Container>
                 </Card>
             ))}

@@ -10,7 +10,8 @@ export const HeaderElement = styled("header")({
     display: "flex",
     alignItems: "center",
     gap: "20px",
-    height: "50px",
+    height: "5rem",
+    boxSizing: "border-box",
     "& img": {
         height: "30px",
         border: "1px solid #001932",

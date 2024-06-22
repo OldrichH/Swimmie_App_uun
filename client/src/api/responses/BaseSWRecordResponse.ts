@@ -3,7 +3,7 @@ export interface BaseSWRecordsResponse {
     records: BaseSWRecordResponse[],
 }
 
-interface BaseSWRecordResponse  {
+export interface BaseSWRecordResponse  {
     _id: string,
     userId: string,
     swumMeters: number,

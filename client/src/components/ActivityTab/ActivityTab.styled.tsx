@@ -14,3 +14,20 @@ export const Container = styled("div")({
     
 });
 
+export const Label = styled("p")({
+    textTransform: "uppercase",
+    fontSize: "0.7rem",
+    margin: "0",
+})
+
+export const Value = styled("p")({
+    textTransform: "uppercase",
+    fontSize: "1.4rem",
+    margin: "4px",
+    color: "var(--secondary-color)",
+})
+
+export const Heading = styled("h3")({
+    display: "block",
+    marginRight: "2rem"
+})

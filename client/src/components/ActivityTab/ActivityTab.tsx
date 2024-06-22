@@ -1,48 +1,78 @@
 import { useGetStyles } from "../../api/queries/useGetStyles";
 import { BaseSWRecordsResponse } from "../../api/responses/BaseSWRecordResponse";
 import Card from "../_base/Card/Card";
-import { Grid } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import * as Styled from "./ActivityTab.styled";
-import EditIcon from "@mui/icons-material/Edit";
+import useMediaQueries from "../../hooks/useMediaQueries";
+import { DeleteForever } from "@mui/icons-material";
+import { useDeleteSWRecord } from "../../api/mutations/useDeleteSWRecord";
+import SWRecordModal from "../Modals/Modal";
 
 const ActivityTab = ({ activities }: { activities: BaseSWRecordsResponse }) => {
-    const { stylesData, isLoading } = useGetStyles();
+    const { stylesData } = useGetStyles();
+    const { xs } = useMediaQueries();
+    const deleteSWRecordMutation = useDeleteSWRecord();
 
-    if (isLoading) return <></>;
+    const sortedActivities = activities.records.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+
+    const handleDelete = (recordId: string) => {
+        deleteSWRecordMutation.mutateAsync(recordId);
+    };
 
     return (
         <>
-            <h3>Activities</h3>
-            {activities!.records.map((item) => (
+            <Styled.Container>
+                <Styled.Heading>Activities</Styled.Heading>
+                <SWRecordModal edit={false} recordData={undefined} />
+            </Styled.Container>
+
+            {sortedActivities.map((item) => (
                 <Card key={item._id}>
                     <Styled.Container>
-                        <img src="/swim_icon.png" alt="logo" />
+                        {!xs && <img src="/swim_icon.png" alt="logo" />}
+
                         <Grid container spacing={4}>
-                            <Grid item xs={6} sm={6} md={3}>
-                                <p>datum:</p>
+                            <Grid item xs={6} sm={6} md={2}>
+                                {/* <Styled.Label>datum:</Styled.Label>
+                                <Styled.Value>{item.date}</Styled.Value> */}
                                 <p>{item.date}</p>
                             </Grid>
-                            <Grid item xs={6} sm={6} md={3}>
-                                <p>uplavané metry:</p>
-                                <p>{item.swumMeters}m</p>
+                            <Grid item xs={6} sm={6} md={2}>
+                                <Styled.Label>vzdálenost:</Styled.Label>
+                                <Styled.Value>{item.swumMeters}m</Styled.Value>
                             </Grid>
-                            <Grid item xs={6} sm={6} md={3}>
-                                <p>kalorie: </p>
-                                <p>{item.calories}kJ</p>
+                            <Grid item xs={6} sm={6} md={2}>
+                                <Styled.Label>kalorie: </Styled.Label>
+                                <Styled.Value>{item.calories}kJ</Styled.Value>
                             </Grid>
-                            <Grid item xs={6} sm={6} md={3}>
-                                <p>styl: </p>
-                                <p>
+                            <Grid item xs={6} sm={6} md={2}>
+                                <Styled.Label>Čas: </Styled.Label>
+                                <Styled.Value>{item.swimmingTime}</Styled.Value>
+                            </Grid>
+                            <Grid item xs={6} sm={6} md={2}>
+                                <Styled.Label>styl: </Styled.Label>
+                                <Styled.Value>
                                     {
-                                        stylesData!.styles.find(
+                                        stylesData?.styles.find(
                                             (style) =>
                                                 style._id === item.styleId
                                         )?.name
                                     }
-                                </p>
+                                </Styled.Value>
+                            </Grid>
+                            <Grid item xs={6} sm={6} md={2} style={{display: "flex", alignItems: "center"}}>
+                                <SWRecordModal edit={true} recordData={item} />
+                                <IconButton
+                                    aria-label="delete"
+                                    style={{ color: "white" }}
+                                    onClick={() => handleDelete(item._id)}
+                                >
+                                    <DeleteForever />
+                                </IconButton>
                             </Grid>
                         </Grid>
-                        <EditIcon />
                     </Styled.Container>
                 </Card>
             ))}

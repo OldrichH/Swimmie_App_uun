@@ -15,7 +15,7 @@ const schema = {
     calories: {type: "number"},
     swimmingTime: {type: "string"},
     styleId: {type: "string"},
-    date: {type: "string", format: "date-time" },
+    date: {type: "string"}, //, format: "date-time" },
   },
   required: ["id"],
   additionalProperties: false,

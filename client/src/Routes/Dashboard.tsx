@@ -7,9 +7,9 @@ import { useGetSWRecordsByUserId } from "../api/queries/useGetSWRecordsByUserId"
 const Dashboard = () => {
     const { userData, isLoading } = useGetUser("665c7b3c047746f79db84dd8"); // Getting only Demo user - authentication not implemented
     const { swRecordData, isLoading: swRecordsLoading } =
-        useGetSWRecordsByUserId("665c7b3c047746f79db84dd8");
+        useGetSWRecordsByUserId(userData?._id);
 
-    if (isLoading || swRecordsLoading) return <CircularProgress/>;
+    if (isLoading || swRecordsLoading) return <CircularProgress />;
 
     return (
         <>

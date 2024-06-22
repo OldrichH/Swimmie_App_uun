@@ -3,7 +3,7 @@ import { styled } from "@mui/material";
 export const HeaderElement = styled("header")({
     backgroundColor: "var(--secondary-color)",
     color: "#001932",
-    padding: "5px 1rem",
+    padding: "5px 3rem",
     width: "100%",
     marginBottom: "1rem",
     opacity: "80%",
@@ -21,4 +21,11 @@ export const HeaderElement = styled("header")({
     "& h1": {
         margin: "0",
     }
+})
+
+export const Logo = styled("div")({
+    flex: "1",
+    width: "100%",
+    display: "flex",
+    gap: "1rem",
 })
